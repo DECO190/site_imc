@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <script data-ad-client="ca-pub-8555974182954354" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div id = 'box'>
+
+        <h1>BMI calculator</h1>
+        <div  id = 'linha'></div>
+        <div id = 'peso_mov'>
+            <div id = 'peso'>
+                <img src="img/peso_icon.png" id = 'peso_icon'>
+                <input type="number" id = 'peso_input' placeholder="Kilos">
+            </div>
+            <label for="peso" id = 'peso_label'>Weight:</label>
+        </div>
+
+        <div id = 'alt_mov'>
+            <div id = 'alt'>
+                <img src="img/alt_icon.png" id = 'alt_icon'>
+                <input type="number" id = 'alt_input' placeholder="Meters">
+            </div>
+            <label for="peso" id = 'alt_label'>Height: </label>
+        
+        </div>
+
+        <div id = 'bttn_mov'>
+            <button type="reset" id = 'bttn_sub' onclick="calc()" >Calculate</button>
+        </div>
+
+        <div id = 'result_box' style="display: none;">
+            <p id = 'result_sta'></p>
+            <p id = 'result_imc'></p>
+        </div>
+
+        
+    </div>
+
+    <div id = 'arrow_mov'>
+        <a href="#destino" id = 'arrow_link'>
+            <img src="img/arrow.png" id = 'arrow'>
+        </a>
+    </div>
+
+    <div id = 'fonte'>
+        <h1 id ='destino'>BMI</h1>
+        <div id = 'linha_tit'></div>
+        <h2>(Body mass index)</h2>
+        <p class="info">The body mass index (BMI) is an international measure used to calculate whether a person is at the ideal weight. Developed by the polymath Lambert Quételet at the end of the 19th century, it is an easy and quick method for assessing the level of fat in each person, and is therefore an international predictor of obesity adopted by the World Health Organization (WHO).</p>
+        <p class="info">What to do to improve BMI?
+            To improve BMI it is important to check whether it is above or below what is considered normal. When the BMI is in the thin range, it is important to consult the nutritionist so that, in addition to making a complete assessment, an eating plan that focuses on weight gain in a healthy way is indicated.       
+        </p>
+        <p class="info">On the other hand, when the BMI is in the range of overweight or obesity, it can be indicated by the nutritionist to perform a diet with more caloric restriction, in addition to the practice of regular physical activity, as it is possible to speed up the metabolism and favor weight loss, which directly influences BMI.</p>
+        <p id = 'fonte_info'>Fonts: <i>tuasaude.com, wikipedia.org</i></p>
+    
+    </div>
+
+    <div id = 'form_lang'> 
+        <h1>Idiom:</h1>
+
+        <a href="index_pt.html" id  = 'link_br' class="link">
+            <img src="img/brazil_icon.png" alt="" class="img_count">
+        </a>
+
+        <a href="index.html" id = 'link_usa' class="link">
+            <img src="img/usa_icon.png" alt="" class="img_count">
+        </a>
+
+    </div>
+
+    <script>
+        function calc(){
+
+            function trat(num){
+                let cont = num
+                let res = ''
+                let temp = num.split('')
+                if (temp.indexOf('.') >= 0 || temp.indexOf(',') >= 0){
+                    return cont
+                } else {
+                    temp.splice(1, 0, '.')
+                    for (let i in temp){
+                        res += temp[i]
+                    }
+                    return res
+                }
+            }
+        
+            
+            // DA1919
+        
+            let result_box = document.getElementById('result_box')
+            let peso = document.getElementById('peso_input').value
+            let alt =  document.getElementById('alt_input').value
+            let box = document.getElementById('box')
+            let res_imc = document.getElementById('result_imc')
+            let res_sta = document.getElementById('result_sta')
+        
+            let peso_int_box = document.getElementById('peso')
+            let alt_int_box = document.getElementById('alt')
+        
+            if (peso == '' && alt == ''){
+                res_sta.style.color = '#DA1919'
+                res_sta.innerHTML = 'Invalid Values!'
+                result_box.style.display = 'inline-block'
+                peso_int_box.style.border = 'solid 3px #DA1919'
+                peso_int_box.style.transition = '300ms'
+        
+                alt_int_box.style.border = 'solid 3px #DA1919'
+                alt_int_box.style.transition = '300ms'
+                
+            } else if  (peso == ''){
+                alt_int_box.style.border = 'solid 3px #1CB2CD'
+                alt_int_box.style.transition = '300ms'
+                res_sta.style.color = '#DA1919'
+                res_sta.innerHTML = 'Invalid value!'
+                result_box.style.display = 'inline-block'
+                peso_int_box.style.border = 'solid 3px #DA1919'
+                peso_int_box.style.transition = '300ms'
+            } else if ( alt == ''){
+                peso_int_box.style.border = 'solid 3px #1CB2CD'
+                peso_int_box.style.transition = '300ms'
+                res_sta.style.color = '#DA1919'
+                res_sta.innerHTML = 'Invalid value!'
+                result_box.style.display = 'inline-block'
+                alt_int_box.style.border = 'solid 3px #DA1919'
+                alt_int_box.style.transition = '300ms'
+            }else {
+                peso_int_box.style.border = 'solid 3px #1CB2CD'
+                peso_int_box.style.transition = '300ms'
+                alt_int_box.style.border = 'solid 3px #1CB2CD'
+                alt_int_box.style.transition = '300ms'
+                res_sta.style.color = '#1CB2CD'
+                let alt_form1 = trat(alt)
+                if (alt_form1.indexOf(',') >= 0){
+                    alt_form1.indexOf(',') = '.'
+                }
+                let alt_form = Number(alt_form1)
+                
+                let peso_form = peso
+                if (peso_form.indexOf(',') >= 0){
+                    peso_form[num.indexOf(',')] = '.'
+                }
+                let imc =  peso_form /(alt_form * alt_form) 
+                if (imc.toFixed(2) > 40 ){
+                    res_sta.innerHTML = 'MORBID OBESITY'
+                } else if (imc.toFixed(2) >= 35 && imc.toFixed(2) <= 40 ){
+                    res_sta.innerHTML = 'LEVEL OBESITY 2'
+                } else if (imc.toFixed(2) >= 30 && imc.toFixed(2) < 35 ){
+                    res_sta.innerHTML = 'LEVEL OBESITY 1'
+                } else if (imc.toFixed(2) >= 25 && imc.toFixed(2) < 30 ){
+                    res_sta.innerHTML = 'OVERWEIGHT'
+                } else if (imc.toFixed(2) >= 18.5 && imc.toFixed(2) < 25 ){
+                    res_sta.innerHTML = 'NORMAL'
+                } else if (imc.toFixed(2) >= 16 && imc.toFixed(2) < 18.5 ){
+                    res_sta.innerHTML = 'UNDER WEIGHT'
+                } else if (imc.toFixed(2) < 16  ){
+                    res_sta.innerHTML = 'DEFICIT WEIGHT'
+                }
+        
+                res_imc.innerHTML = `BMI: ${imc.toFixed(2)}`
+                result_box.style.display = 'inline-block'
+        
+            }
+        
+        
+        
+        }
+    </script>
+
+</body>
+</html>
