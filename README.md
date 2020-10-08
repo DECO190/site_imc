@@ -1,0 +1,3 @@
+# site_imc
+
+> Obs: Não tem arquivos JS pois o host do meu site estava com problema para interpretar arquivos JS, então eu tive que por o script dentro do HTML...
